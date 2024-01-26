@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_16",
+  "package": "com.incompetent_modders.druidry.mixin",
+  "refmap": "incompetent_druidry.refmap.json",
+  "mixins": [
+    "curse.blindness.TargetGoalMixin",
+    "curse.blindness.LevelRendererMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
