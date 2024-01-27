@@ -1,11 +1,13 @@
 package com.incompetent_modders.druidry.casting.staff;
 
-import com.incompetent_modders.druidry.casting.spell.sunburst.SunburstProjectile;
-import com.incompetent_modders.druidry.mana.ManaCap;
-import com.incompetent_modders.druidry.setup.Capabilities;
+import com.incompetent_modders.druidry.setup.DruidrySpells;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
 public class StaffItem extends Item {
@@ -17,19 +19,18 @@ public class StaffItem extends Item {
     public int getLevel() {
         return this.level;
     }
-    
+    public int getUseDuration(ItemStack stack) {
+        return 72000;
+    }
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.CROSSBOW;
+    }
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        return InteractionResultHolder.success(player.getItemInHand(hand));
+    }
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
-        //Check if the player has enough mana
-        if (!level.isClientSide) {
-            if (entity.getCapability(Capabilities.MANA_CAPABILITY).isPresent()) {
-                ManaCap cap = (ManaCap) entity.getCapability(Capabilities.MANA_CAPABILITY).orElseThrow(NullPointerException::new);
-                if (cap.getCurrentMana() >= 10) {
-                    cap.removeMana(10);
-                    SunburstProjectile projectile = new SunburstProjectile(level);
-                    projectile.shootFromRotation(entity, entity.getXRot(), entity.getYRot(), 0.0F, 1.5F, 1.0F);
-                    level.addFreshEntity(projectile);
-                }
-            }
+        if (entity instanceof Player player) {
+            DruidrySpells.GOODBERRY.get().cast(level, player, InteractionHand.MAIN_HAND);
         }
     }
 }

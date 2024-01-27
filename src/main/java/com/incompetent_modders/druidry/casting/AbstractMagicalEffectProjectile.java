@@ -19,6 +19,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import java.util.List;
 
@@ -62,8 +63,9 @@ public abstract class AbstractMagicalEffectProjectile extends Projectile {
     protected int getEffectRadius() {
         return EFFECT_RADIUS;
     }
-    protected void onHitBlock(BlockHitResult hitResult) {
-        super.onHitBlock(hitResult);
+    @Override
+    protected void onHit(HitResult result) {
+        super.onHit(result);
         this.discard();
         this.playSound(this.getHitGroundSoundEvent(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
         this.setSoundEvent(SoundEvents.BREWING_STAND_BREW);
@@ -76,20 +78,24 @@ public abstract class AbstractMagicalEffectProjectile extends Projectile {
         }
     }
     protected void damageEntity(AABB aabb, List<EntityType<?>> targets) {
-        for (LivingEntity livingentity : this.level().getEntitiesOfClass(LivingEntity.class, aabb, (entity) -> {
-            return entity != null && entity.isAlive();
-        })) {
-            boolean flag = false;
-            for (EntityType entityType : targets) {
-                if (livingentity.getType() == entityType) {
-                    flag = true;
+        if (this.level().isClientSide) {
+            return;
+        }
+        if (this.isAOE()) {
+            for (LivingEntity livingentity : this.level().getEntitiesOfClass(LivingEntity.class, aabb, (entity) -> {
+                return entity != null && entity.isAlive();
+            })) {
+                boolean flag = false;
+                for (EntityType entityType : targets) {
+                    if (livingentity.getType() == entityType) {
+                        flag = true;
+                    }
+                }
+                if (flag) {
+                    livingentity.hurt(this.damageSources().magic, (float) BASE_DAMAGE);
                 }
             }
-            if (flag) {
-                livingentity.hurt(this.damageSources().magic, (float) BASE_DAMAGE);
-            }
         }
-        
     }
     private void makeAreaOfEffectCloud(MobEffect effect, int duration, int amplifier, int radius) {
         AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());

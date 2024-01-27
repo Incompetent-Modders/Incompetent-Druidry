@@ -22,6 +22,7 @@ minecraft {
     runs {
         configureEach {
             workingDirectory project.file('run')
+            arg '-mixin.config=incompetent_druidry.mixins.json'
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {

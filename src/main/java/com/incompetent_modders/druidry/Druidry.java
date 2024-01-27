@@ -1,8 +1,7 @@
 package com.incompetent_modders.druidry;
 
 import com.incompetent_modders.druidry.effect.DruidryEffects;
-import com.incompetent_modders.druidry.setup.DruidryEntities;
-import com.incompetent_modders.druidry.setup.DruidryItems;
+import com.incompetent_modders.druidry.setup.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -31,7 +30,7 @@ import org.slf4j.Logger;
 public class Druidry
 {
     public static final String MODID = "incompetent_druidry";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     public static final RegistryObject<CreativeModeTab> druidryMisc = CREATIVE_MODE_TABS.register("incompetent_druidry_misc", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
@@ -44,11 +43,14 @@ public class Druidry
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
+        ModRegistries.SPELLS_DEFERRED_REGISTER.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         DruidryItems.ITEMS.register(modEventBus);
         DruidryEffects.EFFECTS.register(modEventBus);
         DruidryEntities.ENTITIES.register(modEventBus);
+        Attributes.ATTRIBUTES.register(modEventBus);
+        DruidrySpells.SPELLS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::clientSetup);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
