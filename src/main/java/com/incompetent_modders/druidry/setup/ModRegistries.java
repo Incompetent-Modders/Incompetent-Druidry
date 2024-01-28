@@ -5,17 +5,16 @@ import com.incompetent_modders.druidry.casting.spell.Spell;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
+import net.neoforged.neoforge.registries.RegistryBuilder;
 
-import java.util.function.Supplier;
-
-@Mod.EventBusSubscriber(modid = Druidry.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRegistries {
     public static final ResourceKey<Registry<Spell>> SPELLS_KEY = ResourceKey.createRegistryKey(new ResourceLocation(Druidry.MODID, "spell"));
-    public static final DeferredRegister<Spell> SPELLS_DEFERRED_REGISTER = DeferredRegister.create(SPELLS_KEY, Druidry.MODID);
-    public static final Supplier<IForgeRegistry<Spell>> SPELLS = SPELLS_DEFERRED_REGISTER.makeRegistry(() -> new RegistryBuilder<Spell>().disableSaving().disableSync());
+    public static final Registry<Spell> SPELL = new RegistryBuilder<>(SPELLS_KEY).create();
+    
+    public static void register(IEventBus bus) {
+        bus.addListener(NewRegistryEvent.class, event -> event.register(SPELL));
+    }
     
 }

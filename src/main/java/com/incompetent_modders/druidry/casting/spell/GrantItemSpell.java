@@ -9,8 +9,8 @@ public class GrantItemSpell extends Spell {
     
     private final Item item;
     private final int itemAmount;
-    public GrantItemSpell(Item item, int itemAmount, int manaCost) {
-        super(false, manaCost);
+    public GrantItemSpell(Item item, int itemAmount, int manaCost, int drawTime) {
+        super(false, manaCost, drawTime);
         this.item = item;
         this.itemAmount = itemAmount;
     }

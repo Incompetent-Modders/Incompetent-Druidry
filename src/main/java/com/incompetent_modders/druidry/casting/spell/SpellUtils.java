@@ -2,6 +2,7 @@ package com.incompetent_modders.druidry.casting.spell;
 
 import com.incompetent_modders.druidry.casting.spell_crystal.SpellCrystalItem;
 import com.incompetent_modders.druidry.setup.Capabilities;
+import com.incompetent_modders.druidry.setup.DruidrySpells;
 import com.incompetent_modders.druidry.setup.ModRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -30,10 +31,13 @@ public class SpellUtils {
     }
     
     public static Spell deserializeFromSlot(CompoundTag tag, int slot) {
-        if (tag.contains("spellSlot_" + slot)) {
-            return ModRegistries.SPELLS.get().getValue(new ResourceLocation(tag.getString("spellSlot_" + slot)));
+        if (tag == null) {
+            return DruidrySpells.EMPTY.get();
         }
-        return null;
+        if (tag.contains("spellSlot_" + slot)) {
+            return ModRegistries.SPELL.get(new ResourceLocation(tag.getString("spellSlot_" + slot)));
+        }
+        return DruidrySpells.EMPTY.get();
         
     }
 }

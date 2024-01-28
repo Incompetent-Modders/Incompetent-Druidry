@@ -1,0 +1,24 @@
+/attribute Dev incompetent_druidry:incompetent_druidry.max_mana base set 100
+/attribute Dev incompetent_druidry:incompetent_druidry.max_mana get
+/attribute Dev incompetent_druidry:incompetent_druidry.mana_regen base get
+/attribute Dev incompetent_druidry:incompetent_druidry.mana_regen base set 2
+/summon incompetent_druidry:sunburst_projectile
+/clone 14 -61 19 14 -61 19 to minecraft:overworld 14 -61 19 replace
+/w Dev :3
+/attribute Dev incompetent_druidry:incompetent_druidry.max_mana base set 100
+/effect give @e incompetent_druidry:blindness_curse
+/gamemode survival
+/gamemode creative
+/time set 0000
+/data get entity Dev
+/data get entity @e[type=minecraft:item, limit=1]
+/data get entity @e[type=minecraft:item, limit=1, sort=nearest]
+/data modify entity @e[type=minecraft:item, limit=1, sort=nearest] spellSlot_1 set value "incompetent_druidry:goodberry"
+/data get entity @e[type=minecraft:item, limit=1, sort=nearest]
+/data modify entity @e[type=minecraft:item, limit=1, sort=nearest] spellSlot_1 set value "incompetent_druidry:goodberry"
+/data get entity @e[type=minecraft:item, limit=1, sort=nearest]
+/data get entity @e[type=minecraft:item, limit=1, sort=nearest] spellSlot_1
+/data modify entity @e[type=minecraft:item, limit=1, sort=nearest] set value "incompetent_druidry:goodberry"
+/data remove entity @e[type=minecraft:item, limit=1, sort=nearest]
+/data remove entity @e[type=minecraft:item, limit=1, sort=nearest] spellSlot_1
+/give @s incompetent_druidry:spell_slot_insert_smithing_template

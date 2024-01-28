@@ -1,7 +1,27 @@
 {
   "spell.druidry.do_nothing": "Nothing Happened",
   "item.druidry.goodberry.tooltip": "The magic of this berry will last for One Day",
-  "spell.incompetent_druidry.null": "<[ ]>",
-  "spell.incompetent_druidry.spell_slot": "Slot"
+  "spell.incompetent_druidry.spell_slot": "Slot",
+
+  "item.incompetent_druidry.basic_staff": "Staff",
+  "item.incompetent_druidry.spell_slot_insert_smithing_template": "Spell Slot Insert",
+
+
+
+
+
+
+
+
+
+  "item.incompetent_druidry.smithing_template.spell_slot_insert.additions_slot_description": "Add Druid Scroll",
+  "item.incompetent_druidry.smithing_template.spell_slot_insert.applies_to": "Magical Staff",
+  "item.incompetent_druidry.smithing_template.spell_slot_insert.base_slot_description": "Add a Magical Staff",
+  "item.incompetent_druidry.smithing_template.spell_slot_insert.ingredients": "Druid Scroll",
+  "upgrade.incompetent_druidry.spell_slot_insert": "Spell Slot Insert",
+
+  "spell.incompetent_druidry.empty": "No Spell",
+  "spell.incompetent_druidry.goodberry": "Goodberry"
+
 
 }

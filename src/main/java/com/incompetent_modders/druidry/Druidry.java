@@ -1,30 +1,43 @@
 package com.incompetent_modders.druidry;
 
+import com.incompetent_modders.druidry.client.ClientEventHandler;
 import com.incompetent_modders.druidry.effect.DruidryEffects;
+import com.incompetent_modders.druidry.network.AbstractPacket;
+import com.incompetent_modders.druidry.network.Networking;
+import com.incompetent_modders.druidry.network.SpellSlotScrollMessage;
 import com.incompetent_modders.druidry.setup.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.network.NetworkRegistry;
+import net.neoforged.neoforge.network.PlayNetworkDirection;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
+
+import static net.neoforged.neoforge.network.PlayNetworkDirection.PLAY_TO_SERVER;
 
 @Mod(Druidry.MODID)
 public class Druidry
@@ -32,20 +45,19 @@ public class Druidry
     public static final String MODID = "incompetent_druidry";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-    public static final RegistryObject<CreativeModeTab> druidryMisc = CREATIVE_MODE_TABS.register("incompetent_druidry_misc", () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> druidryMisc = CREATIVE_MODE_TABS.register("incompetent_druidry_misc", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(Items.AMETHYST_SHARD::getDefaultInstance)
+            .icon(() -> DruidryItems.GOODBERRY.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(Items.AMETHYST_SHARD); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(DruidryItems.GOODBERRY.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
-
     public Druidry()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
-        ModRegistries.SPELLS_DEFERRED_REGISTER.register(modEventBus);
+        ModRegistries.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
         DruidryItems.ITEMS.register(modEventBus);
         DruidryEffects.EFFECTS.register(modEventBus);
         DruidryEntities.ENTITIES.register(modEventBus);
@@ -53,7 +65,11 @@ public class Druidry
         DruidrySpells.SPELLS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::clientSetup);
+        //modEventBus.addListener(DruidryCommands::onCommandsRegistered);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        ClientEventHandler handler = new ClientEventHandler();
+        NeoForge.EVENT_BUS.register(handler);
+        new Networking().init();
     }
     
     public void clientSetup(final FMLClientSetupEvent event) {
@@ -64,7 +80,7 @@ public class Druidry
         LOGGER.info("HELLO FROM COMMON SETUP");
 
         if (Config.logDirtBlock)
-            LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
+            LOGGER.info("GOODBERRY >> {}", ModRegistries.SPELL.getKey(DruidrySpells.GOODBERRY.get()));
 
         LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
 
@@ -74,7 +90,7 @@ public class Druidry
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == druidryMisc.getKey())
-            event.accept(DruidryItems.STAFF);
+            event.accept(DruidryItems.STAFF.get());
     }
 
     @SubscribeEvent

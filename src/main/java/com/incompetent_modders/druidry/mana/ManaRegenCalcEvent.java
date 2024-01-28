@@ -1,7 +1,7 @@
 package com.incompetent_modders.druidry.mana;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 
 public class ManaRegenCalcEvent extends LivingEvent {
     

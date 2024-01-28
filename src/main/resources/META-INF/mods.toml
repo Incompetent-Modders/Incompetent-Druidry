@@ -7,12 +7,14 @@ version="${mod_version}" #mandatory
 displayName="${mod_name}" #mandatory
 authors="${mod_authors}" #optional
 description='''${mod_description}'''
+[[mixins]]
+config="incompetent_druidry.mixins.json"
 [[dependencies.incompetent_druidry]] #optional
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="${forge_version_range}" #mandatory
-    ordering="NONE"
-    side="BOTH"
+modId="neoforge" #mandatory
+mandatory=true #mandatory
+versionRange="${neo_version_range}" #mandatory
+ordering="NONE"
+side="BOTH"
 [[dependencies.incompetent_druidry]]
     modId="minecraft"
     mandatory=true

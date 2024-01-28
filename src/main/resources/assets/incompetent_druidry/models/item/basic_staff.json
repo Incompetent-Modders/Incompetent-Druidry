@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "incompetent_druidry:item/staff/basic_oak"
+  }
+}

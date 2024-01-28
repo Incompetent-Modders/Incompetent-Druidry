@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "incompetent_druidry:item/spell_slot_insert_smithing_template"
+  }
+}

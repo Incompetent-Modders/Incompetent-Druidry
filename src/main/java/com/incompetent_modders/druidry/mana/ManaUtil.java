@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 
 import java.util.UUID;
 
@@ -49,7 +49,7 @@ public class ManaUtil {
         if (manaAttribute != null) {
             var manaCache = manaAttribute.getModifier(MAX_MANA_MODIFIER);
             if (manaCache == null || manaCache.getAmount() != rawMax) {
-                if (manaCache != null) manaAttribute.removeModifier(manaCache);
+                if (manaCache != null) manaAttribute.removeModifier(manaCache.getId());
                 manaAttribute.addTransientModifier(new AttributeModifier(MAX_MANA_MODIFIER, "Mana Cache", rawMax, AttributeModifier.Operation.ADDITION));
             }
             rawMax = manaAttribute.getValue();
@@ -58,7 +58,7 @@ public class ManaUtil {
         int max = (int) rawMax;
         
         MaxManaCalcEvent event = new MaxManaCalcEvent(e, max);
-        MinecraftForge.EVENT_BUS.post(event);
+        NeoForge.EVENT_BUS.post(event);
         max = event.getMax();
         float reserve = event.getReserve();
         return new Mana(max, reserve);
@@ -85,14 +85,14 @@ public class ManaUtil {
         if (manaAttribute != null) {
             var manaCache = manaAttribute.getModifier(MANA_REGEN_MODIFIER);
             if (manaCache == null || manaCache.getAmount() != regen) {
-                if (manaCache != null) manaAttribute.removeModifier(manaCache);
+                if (manaCache != null) manaAttribute.removeModifier(manaCache.getId());
                 manaAttribute.addTransientModifier(new AttributeModifier(MANA_REGEN_MODIFIER, "Mana Regen Cache", regen, AttributeModifier.Operation.ADDITION));
             }
             regen = manaAttribute.getValue();
         }
         
         ManaRegenCalcEvent event = new ManaRegenCalcEvent(e, regen);
-        MinecraftForge.EVENT_BUS.post(event);
+        NeoForge.EVENT_BUS.post(event);
         regen = event.getRegen();
         return regen;
     }

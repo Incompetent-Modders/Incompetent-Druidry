@@ -1,16 +1,17 @@
 package com.incompetent_modders.druidry.effect;
 
 import com.incompetent_modders.druidry.Druidry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
 
 public class DruidryEffects {
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, Druidry.MODID);
-    public static final RegistryObject<MobEffect> BLINDNESS_CURSE;
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, Druidry.MODID);
+    public static final DeferredHolder<MobEffect, MobEffect> BLINDNESS_CURSE;
     
     static {
         BLINDNESS_CURSE = EFFECTS.register("blindness_curse", () -> new MagicallyAppliedEffect(MobEffectCategory.HARMFUL, 0x000000));
