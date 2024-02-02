@@ -12,7 +12,8 @@
 
 
 
-
+  "item.incompetent_druidry.spell_tablet.cast_time_title": "Cast Time",
+  "item.incompetent_druidry.spell_tablet.mana_cost_title": "Mana Cost",
 
   "item.incompetent_druidry.smithing_template.spell_slot_insert.additions_slot_description": "Add Druid Scroll",
   "item.incompetent_druidry.smithing_template.spell_slot_insert.applies_to": "Magical Staff",

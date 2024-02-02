@@ -21,7 +21,7 @@ public class Attributes {
     public static final HashMap<DeferredHolder<Attribute, Attribute>, UUID> UUIDS = new HashMap<>();
     public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, Druidry.MODID);
     
-    public static final DeferredHolder<Attribute, Attribute> MANA_REGEN_BONUS = registerAttribute("incompetent_druidry.mana_regen", (id) -> new RangedAttribute(id, 0.0D, 0.0D, 2000.0D).setSyncable(true), "ed69a04a-eb94-4828-88fc-dd366145ed46");
+    public static final DeferredHolder<Attribute, Attribute> MANA_REGEN_BONUS = registerAttribute("incompetent_druidry.mana_regen", (id) -> new RangedAttribute(id, 1.0D, 0.0D, 2000.0D).setSyncable(true), "ed69a04a-eb94-4828-88fc-dd366145ed46");
     
     public static final DeferredHolder<Attribute, Attribute> MAX_MANA = registerAttribute("incompetent_druidry.max_mana", (id) -> new RangedAttribute(id, 100.0D, 0.0D, 10000.0D).setSyncable(true), "6393df79-d450-4374-9826-b81c2db0f053");
     

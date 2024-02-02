@@ -25,9 +25,7 @@ public class SpellUtils {
     }
     
     public static void removeMana(Player player, int amount) {
-        if (player.getCapability(Capabilities.MANA_CAPABILITY).isPresent()) {
-            player.getCapability(Capabilities.MANA_CAPABILITY).ifPresent(cap -> cap.removeMana(amount));
-        }
+        Capabilities.getMana(player).ifPresent(cap -> cap.removeMana(amount));
     }
     
     public static Spell deserializeFromSlot(CompoundTag tag, int slot) {

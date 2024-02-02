@@ -2,15 +2,11 @@ package com.incompetent_modders.druidry.casting.spell;
 
 import com.incompetent_modders.druidry.Druidry;
 import com.incompetent_modders.druidry.setup.Capabilities;
-import com.incompetent_modders.druidry.setup.DruidrySpells;
 import com.incompetent_modders.druidry.setup.ModRegistries;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class Spell {
@@ -75,8 +71,8 @@ public class Spell {
         return false;
     }
     protected boolean canCast(Level level, Player player, InteractionHand hand) {
-        if (player.getCapability(Capabilities.MANA_CAPABILITY).isPresent()) {
-            return player.getCapability(Capabilities.MANA_CAPABILITY).orElseThrow(NullPointerException::new).getCurrentMana() >= this.getManaCost();
+        if (Capabilities.getMana(player).isPresent()) {
+            return Capabilities.getMana(player).orElseThrow(NullPointerException::new).getCurrentMana() >= this.getManaCost();
         } else {
             return false;
         }

@@ -2,15 +2,11 @@ package com.incompetent_modders.druidry;
 
 import com.incompetent_modders.druidry.client.ClientEventHandler;
 import com.incompetent_modders.druidry.effect.DruidryEffects;
-import com.incompetent_modders.druidry.network.AbstractPacket;
 import com.incompetent_modders.druidry.network.Networking;
-import com.incompetent_modders.druidry.network.SpellSlotScrollMessage;
 import com.incompetent_modders.druidry.setup.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.api.distmarker.Dist;
@@ -25,19 +21,9 @@ import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.network.NetworkRegistry;
-import net.neoforged.neoforge.network.PlayNetworkDirection;
-import net.neoforged.neoforge.network.simple.SimpleChannel;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
-
-import static net.neoforged.neoforge.network.PlayNetworkDirection.PLAY_TO_SERVER;
 
 @Mod(Druidry.MODID)
 public class Druidry
@@ -63,6 +49,7 @@ public class Druidry
         DruidryEntities.ENTITIES.register(modEventBus);
         Attributes.ATTRIBUTES.register(modEventBus);
         DruidrySpells.SPELLS.register(modEventBus);
+        DruidryTablets.ITEMS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::clientSetup);
         //modEventBus.addListener(DruidryCommands::onCommandsRegistered);

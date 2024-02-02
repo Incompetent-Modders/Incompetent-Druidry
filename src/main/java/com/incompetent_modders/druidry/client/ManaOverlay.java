@@ -24,8 +24,8 @@ public class ManaOverlay implements IGuiOverlay {
         if (player == null)
             return;
         
-        double mana = player.getCapability(Capabilities.MANA_CAPABILITY).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getCurrentMana();
-        double maxMana = player.getCapability(Capabilities.MANA_CAPABILITY).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getMaxMana();
+        double mana = Capabilities.getMana(player).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getCurrentMana();
+        double maxMana = Capabilities.getMana(player).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getMaxMana();
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
         poseStack.translate((double) screenWidth / 2 + 120, screenHeight - 53, 0);
