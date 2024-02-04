@@ -10,17 +10,54 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.NetworkRegistry;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PlayNetworkDirection;
 import net.neoforged.neoforge.network.simple.SimpleChannel;
 
 public class Networking {
-    private static final String PROTOCOL_VERSION = "1";
-    public static final SimpleChannel MAIN = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Druidry.MODID, "incompetent_druidry_network"),
-            () -> PROTOCOL_VERSION,
-            PROTOCOL_VERSION::equals,
-            NetworkRegistry.acceptMissingOr(PROTOCOL_VERSION::equals)
-    );
-    public void init() {
-        MAIN.messageBuilder(SpellSlotScrollMessage.class, 0).encoder(SpellSlotScrollMessage::toBytes).decoder(SpellSlotScrollMessage::new).consumerMainThread(SpellSlotScrollMessage::handle).add();
+    public static SimpleChannel INSTANCE;
+    
+    private static int packetId = 0;
+    
+    private static int id() {
+        return packetId++;
+    }
+    public static void register() {
+        SimpleChannel net = NetworkRegistry.ChannelBuilder
+                .named(new ResourceLocation(Druidry.MODID, "messages"))
+                .networkProtocolVersion(() -> "1.0")
+                .clientAcceptedVersions(s -> true)
+                .serverAcceptedVersions(s -> true)
+                .simpleChannel();
+        
+        INSTANCE = net;
+        
+        net.messageBuilder(SpellSlotScrollMessage.class, id(), PlayNetworkDirection.PLAY_TO_SERVER)
+                .decoder(SpellSlotScrollMessage::new)
+                .encoder(SpellSlotScrollMessage::toBytes)
+                .consumerMainThread(SpellSlotScrollMessage::handle)
+                .add();
+    }
+    
+    public static <MSG> void sendToServer(MSG message) {
+        INSTANCE.sendToServer(message);
+    }
+    
+    public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
+        
+    }
+    
+    public static <MSG> void sendToAllPlayers(MSG message) {
+        INSTANCE.send(PacketDistributor.ALL.noArg(), message);
+    }
+    
+    public static <MSG> void sendToPlayersTrackingEntity(MSG message, Entity entity) {
+        sendToPlayersTrackingEntity(message, entity, false);
+    }
+    
+    public static <MSG> void sendToPlayersTrackingEntity(MSG message, Entity entity, boolean sendToSource) {
+        INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
+        if (sendToSource && entity instanceof ServerPlayer serverPlayer)
+            sendToPlayer(message, serverPlayer);
     }
 }

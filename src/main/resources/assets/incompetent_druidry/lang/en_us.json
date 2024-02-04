@@ -5,12 +5,15 @@
 
   "item.incompetent_druidry.basic_staff": "Staff",
   "item.incompetent_druidry.spell_slot_insert_smithing_template": "Spell Slot Insert",
+  "item.incompetent_druidry.spell_tablet_goodberry": "Druidry Tablet",
+
+  "item.incompetent_druidry.goodberry": "Goodberries",
 
 
 
 
-
-
+  "item.incompetent_druidry.staff.selected_spell": "Selected Spell",
+  "item.incompetent_druidry.staff.available_spells": "Available Spells",
 
   "item.incompetent_druidry.spell_tablet.cast_time_title": "Cast Time",
   "item.incompetent_druidry.spell_tablet.mana_cost_title": "Mana Cost",
@@ -22,7 +25,8 @@
   "upgrade.incompetent_druidry.spell_slot_insert": "Spell Slot Insert",
 
   "spell.incompetent_druidry.empty": "No Spell",
-  "spell.incompetent_druidry.goodberry": "Goodberry"
+  "spell.incompetent_druidry.goodberry": "Goodberry",
+  "argument.spell.id.invalid": "Invalid Spell: %s"
 
 
 }

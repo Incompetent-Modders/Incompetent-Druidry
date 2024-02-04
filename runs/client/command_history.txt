@@ -22,3 +22,23 @@
 /data remove entity @e[type=minecraft:item, limit=1, sort=nearest]
 /data remove entity @e[type=minecraft:item, limit=1, sort=nearest] spellSlot_1
 /give @s incompetent_druidry:spell_slot_insert_smithing_template
+/data get entity @e[limit=1,sort=nearest,type=item]
+/data modify entity @e[limit=1,sort=nearest,type=item] spellSlot_1 set value "incompetent_druidry:goodberry"
+/effect give Dev incompetent_druidry:blindness_curse
+/setSpell 1 "incompetent_druidry:goodberry"
+/setSpell 1 incompetent_druidry:goodberry
+/setSpell 1 "incompetent_druidry:goodberry"
+/setSpell 2 "incompetent_druidry:goodberry"
+/setSpell 1 "incompetent_druidry:goodberry"
+/setSpell 0 "incompetent_druidry:goodberry"
+/getSpell 1
+/setSpell 0 "incompetent_druidry:goodberry"
+/setSpell 1 "incompetent_druidry:goodberry"
+/setSpell 0 "incompetent_druidry:empty"
+/setSpell 0 "incompetent_druidry:goodberry"
+/setSpell 0 "incompetent_druidry:empty"
+/setSpell 0 "incompetent_druidry:goodberry"
+/give @s incompetent_druidry:spell_tablet_goodberry
+/time set 0
+/time set 13999
+/time set 23999

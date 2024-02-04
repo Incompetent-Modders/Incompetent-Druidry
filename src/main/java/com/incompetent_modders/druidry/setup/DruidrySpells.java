@@ -12,6 +12,6 @@ public class DruidrySpells {
     public static final DeferredRegister<Spell> SPELLS = DeferredRegister.create(ModRegistries.SPELL, MODID);
     
     public static final DeferredHolder<Spell, Spell> EMPTY = SPELLS.register("empty", EmptySpell::new);
-    public static final DeferredHolder<Spell, Spell> GOODBERRY = SPELLS.register("goodberry", () -> new GrantItemSpell(DruidryItems.GOODBERRY.get(), 10, 20, 72000));
+    public static final DeferredHolder<Spell, Spell> GOODBERRY = SPELLS.register("goodberry", () -> new GrantItemSpell(DruidryItems.GOODBERRY.get(), 10, 20, 40));
     
 }

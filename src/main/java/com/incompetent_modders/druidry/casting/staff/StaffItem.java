@@ -4,8 +4,12 @@ import com.incompetent_modders.druidry.casting.spell.Spell;
 import com.incompetent_modders.druidry.casting.spell.SpellUtils;
 import com.incompetent_modders.druidry.casting.spell_crystal.SpellCrystalItem;
 import com.incompetent_modders.druidry.setup.DruidrySpells;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -18,7 +22,13 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static com.incompetent_modders.druidry.Druidry.MODID;
+import static com.incompetent_modders.druidry.casting.spell.DruidryTablet.DESCRIPTION_FORMAT;
+import static com.incompetent_modders.druidry.casting.spell.DruidryTablet.TITLE_FORMAT;
+
 public class StaffItem extends Item {
+    private final String selSpellSlot = "selectedSpellSlot";
+    private final String spellSlot = "spellSlot_";
     private final int level;
     private static int selectedSpellSlot;
     public StaffItem(Properties p, int level) {
@@ -32,7 +42,7 @@ public class StaffItem extends Item {
         return 72000;
     }
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.TOOT_HORN;
+        return UseAnim.BLOCK;
     }
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -45,21 +55,41 @@ public class StaffItem extends Item {
     }
     public static int getSpellSlots(int tier) {
         return switch (tier) {
-            case 2 -> 3;
-            case 3 -> 4;
-            case 4 -> 5;
-            default -> 2;
+            case 2 -> 2;
+            case 3 -> 3;
+            case 4 -> 4;
+            default -> 1;
         };
     }
     public static String getSpellNameInSlot(CompoundTag tag, int slot) {
         return SpellUtils.deserializeFromSlot(tag, slot).getDisplayName().getString();
     }
-    
+    private static final Component SELECTED_SPELL_TITLE = Component.translatable(
+                    Util.makeDescriptionId("item", new ResourceLocation(MODID,"staff.selected_spell"))
+            )
+            .withStyle(TITLE_FORMAT);
+    private static final Component AVAILABLE_SPELLS_TITLE = Component.translatable(
+                    Util.makeDescriptionId("item", new ResourceLocation(MODID,"staff.available_spells"))
+            )
+            .withStyle(TITLE_FORMAT);
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         CompoundTag tag = stack.getTag();
-        for (int i = 1; i <= getSpellSlots(this.getLevel()); i++) {
-            tooltip.add(Component.literal(i + " > [").append(getSpellNameInSlot(tag, i)).append(" ]"));
+        if (tag == null) {
+            return;
         }
+        tooltip.add(CommonComponents.EMPTY);
+        tooltip.add(SELECTED_SPELL_TITLE);
+        tooltip.add(CommonComponents.space().append(getSelectedSpell(stack).getDisplayName()).withStyle(DESCRIPTION_FORMAT));
+        tooltip.add(CommonComponents.EMPTY);
+        tooltip.add(AVAILABLE_SPELLS_TITLE);
+        for (int i = 0; i <= getSpellSlots(this.getLevel()); i++) {
+            if (i == selectedSpellSlot) {
+                return;
+            }
+            else
+                tooltip.add(CommonComponents.space().append(getSpellNameInSlot(tag, i)).withStyle(DESCRIPTION_FORMAT));
+        }
+        
     }
     public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
         if (entity instanceof Player player) {
@@ -75,43 +105,37 @@ public class StaffItem extends Item {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
         CompoundTag tag = stack.getTag();
         if (tag == null) {
-            tag = new CompoundTag();
-            tag.putInt("selectedSpellSlot", 1);
-            stack.setTag(tag);
+            return;
         }
-        for (int i = 1; i <= getSpellSlots(this.getLevel()); i++) {
-            if (!tag.contains("spellSlot_" + i) && tag.getString("spellSlot_" + i).isEmpty()) {
-                tag.putString("spellSlot_" + i, DruidrySpells.EMPTY.get().getSpellIdentifier().toString());
-            } else if (tag.getString("spellSlot_" + i).isEmpty()) {
-                tag.putString("spellSlot_" + i, DruidrySpells.EMPTY.get().getSpellIdentifier().toString());
+        for (int i = 0; i <= getSpellSlots(this.getLevel()); i++) {
+            if (!tag.contains(spellSlot + i) || tag.getString(spellSlot + i).isEmpty()) {
+                tag.putString(spellSlot + i, DruidrySpells.EMPTY.get().getSpellIdentifier().toString());
             }
         }
-        if (!tag.contains("selectedSpellSlot"))
-            tag.putInt("selectedSpellSlot", 1);
+        if (!tag.contains(selSpellSlot))
+            tag.putInt(selSpellSlot, 1);
     }
     public void changeSelectedSpell(ItemStack stack, boolean up) {
         CompoundTag tag = stack.getTag();
         if (tag == null) {
-            tag = new CompoundTag();
-            tag.putInt("selectedSpellSlot", 1);
-            stack.setTag(tag);
+            return;
         }
-        int selectedSpellSlotTag = tag.getInt("selectedSpellSlot");
+        int selectedSpellSlotTag = tag.getInt(selSpellSlot);
         if (up) {
             if (selectedSpellSlotTag == getSpellSlots(this.getLevel())) {
-                selectedSpellSlot = 1;
+                selectedSpellSlot = 0;
             } else {
                 selectedSpellSlot++;
             }
         }
         if (!up) {
-            if (selectedSpellSlotTag == 1) {
+            if (selectedSpellSlotTag == 0) {
                 selectedSpellSlot = getSpellSlots(this.getLevel());
             } else {
                 selectedSpellSlot--;
             }
         }
-        tag.putInt("selectedSpellSlot", selectedSpellSlot);
+        tag.putInt(selSpellSlot, selectedSpellSlot);
     }
     public Spell getSelectedSpell(ItemStack stack) {
         CompoundTag tag = stack.getTag();

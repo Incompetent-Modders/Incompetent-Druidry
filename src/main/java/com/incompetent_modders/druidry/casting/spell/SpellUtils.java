@@ -33,9 +33,18 @@ public class SpellUtils {
             return DruidrySpells.EMPTY.get();
         }
         if (tag.contains("spellSlot_" + slot)) {
-            return ModRegistries.SPELL.get(new ResourceLocation(tag.getString("spellSlot_" + slot)));
+            //The NBT formats the spell as modid:spellname. We need to separate them into two strings.
+            String spellModid = tag.getString("spellSlot_" + slot).split(":")[0];
+            String spellName = tag.getString("spellSlot_" + slot).split(":")[1];
+            return ModRegistries.SPELL.get(new ResourceLocation(spellModid, spellName));
         }
         return DruidrySpells.EMPTY.get();
         
+    }
+    public static void serializeToSlot(CompoundTag tag, int slot, Spell spell) {
+        if (tag == null) {
+            return;
+        }
+        tag.putString("spellSlot_" + slot, spell.getSpellIdentifier().toString());
     }
 }

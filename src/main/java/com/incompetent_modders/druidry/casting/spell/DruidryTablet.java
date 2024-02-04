@@ -1,5 +1,6 @@
 package com.incompetent_modders.druidry.casting.spell;
 
+import com.incompetent_modders.druidry.setup.ModRegistries;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.CommonComponents;
@@ -7,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SmithingTemplateItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
@@ -16,8 +18,8 @@ import java.util.List;
 import static com.incompetent_modders.druidry.Druidry.MODID;
 
 public class DruidryTablet extends Item {
-    private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
-    private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
+    public static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
+    public static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
     private static final Component SPELL_CAST_TIME_TITLE = Component.translatable(
                     Util.makeDescriptionId("item", new ResourceLocation(MODID,"spell_tablet.cast_time_title"))
             )
@@ -27,27 +29,27 @@ public class DruidryTablet extends Item {
                     Util.makeDescriptionId("item", new ResourceLocation(MODID,"spell_tablet.mana_cost_title"))
             )
             .withStyle(TITLE_FORMAT);
-    private final Spell spell;
+    private final ResourceLocation spell;
     
     public DruidryTablet(
-            Spell spell
+            ResourceLocation spell
     ) {
         super(new Item.Properties().stacksTo(1));
         this.spell = spell;
     }
     
-    private Spell getSpell() {
-        return spell;
+    public Spell getSpell() {
+        return ModRegistries.SPELL.get(spell);
     }
     
     private Component getSpellDescription() {
-        return getSpell().getDisplayName();
+        return getSpell().getDisplayName().copy().withStyle(TITLE_FORMAT);
     }
     private int getSpellCastTime() {
         return getSpell().getDrawTime() / 20;
     }
     
-    private int getManaCost() {
+    public int getManaCost() {
         return getSpell().getManaCost();
     }
     
@@ -67,8 +69,8 @@ public class DruidryTablet extends Item {
         tooltip.add(this.getSpellDescription());
         tooltip.add(CommonComponents.EMPTY);
         tooltip.add(SPELL_CAST_TIME_TITLE);
-        tooltip.add(CommonComponents.space().append(spellCastTimeString()));
+        tooltip.add(CommonComponents.space().append(spellCastTimeString()).withStyle(DESCRIPTION_FORMAT));
         tooltip.add(MANA_COST_TITLE);
-        tooltip.add(CommonComponents.space().append(manaCostString()));
+        tooltip.add(CommonComponents.space().append(manaCostString()).withStyle(DESCRIPTION_FORMAT));
     }
 }

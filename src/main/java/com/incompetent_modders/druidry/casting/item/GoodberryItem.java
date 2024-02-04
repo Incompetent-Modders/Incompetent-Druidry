@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class GoodberryItem extends Item {
-    private static int dayLength = 24000;
+    private static final int dayLength = 24000;
     public GoodberryItem(Properties properties) {
         super(properties);
     }
@@ -25,14 +25,13 @@ public class GoodberryItem extends Item {
     }
     
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
-        dayLength--;
-        if (dayLength == 0) {
+        if (level.getDayTime() == 0) {
             convertToSweetBerries((Player) entity, stack);
         }
     }
     
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        components.add(Component.translatable("item.druidry.goodberry.tooltip"));
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable("item.druidry.goodberry.tooltip"));
     }
     
     

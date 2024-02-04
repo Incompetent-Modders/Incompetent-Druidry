@@ -1,11 +1,18 @@
 package com.incompetent_modders.druidry;
 
 import com.incompetent_modders.druidry.client.ClientEventHandler;
+import com.incompetent_modders.druidry.command.arguments.SpellArgument;
 import com.incompetent_modders.druidry.effect.DruidryEffects;
 import com.incompetent_modders.druidry.network.Networking;
 import com.incompetent_modders.druidry.setup.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.commands.arguments.item.ItemArgument;
+import net.minecraft.commands.synchronization.ArgumentTypeInfo;
+import net.minecraft.commands.synchronization.ArgumentTypeInfos;
+import net.minecraft.commands.synchronization.SingletonArgumentInfo;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -31,12 +38,22 @@ public class Druidry
     public static final String MODID = "incompetent_druidry";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    private static final DeferredRegister<ArgumentTypeInfo<?, ?>> ARG_TYPE = DeferredRegister.create(
+            Registries.COMMAND_ARGUMENT_TYPE, MODID
+    );
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> druidryMisc = CREATIVE_MODE_TABS.register("incompetent_druidry_misc", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> DruidryItems.GOODBERRY.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(DruidryItems.GOODBERRY.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(DruidryItems.GOODBERRY.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
+                
             }).build());
+    
+    public static final DeferredHolder<ArgumentTypeInfo<?, ?>, SingletonArgumentInfo<SpellArgument>> SPELL_ARG = ARG_TYPE.register(
+            "spell", () -> ArgumentTypeInfos.registerByClass(
+                    SpellArgument.class, SingletonArgumentInfo.contextFree(SpellArgument::new)
+            )
+    );
     public Druidry()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -49,14 +66,16 @@ public class Druidry
         DruidryEntities.ENTITIES.register(modEventBus);
         Attributes.ATTRIBUTES.register(modEventBus);
         DruidrySpells.SPELLS.register(modEventBus);
-        DruidryTablets.ITEMS.register(modEventBus);
+        ARG_TYPE.register(modEventBus);
+        Networking.register();
+        DruidryTablets.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::clientSetup);
+        
         //modEventBus.addListener(DruidryCommands::onCommandsRegistered);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         ClientEventHandler handler = new ClientEventHandler();
         NeoForge.EVENT_BUS.register(handler);
-        new Networking().init();
     }
     
     public void clientSetup(final FMLClientSetupEvent event) {
