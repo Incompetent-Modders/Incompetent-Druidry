@@ -31,7 +31,7 @@ public class SpellListOverlay implements IGuiOverlay {
         if (player == null)
             return;
         
-        if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == DruidryItems.STAFF.get()) && !(player.getItemInHand(InteractionHand.OFF_HAND).getItem() == DruidryItems.STAFF.get()))
+        if (!(player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof StaffItem) && !(player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof StaffItem))
             return;
         
         Item staffMainHand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();

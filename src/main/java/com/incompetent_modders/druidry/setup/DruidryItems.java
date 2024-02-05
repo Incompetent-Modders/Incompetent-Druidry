@@ -1,5 +1,6 @@
 package com.incompetent_modders.druidry.setup;
 
+import com.incompetent_modders.druidry.casting.spell.DruidryTablet;
 import com.incompetent_modders.druidry.casting.staff.StaffItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -59,6 +60,8 @@ public class DruidryItems {
             createSpellSlotInsertMaterialList()
     ));
     
+    public static final DeferredHolder<Item, Item> GOODBERRY_TABLET = ITEMS.register("spell_tablet_goodberry", () -> new DruidryTablet(new ResourceLocation(MODID, "goodberry")));
+    public static final DeferredHolder<Item, Item> PLANT_GROWTH_TABLET = ITEMS.register("spell_tablet_plant_growth", () -> new DruidryTablet(new ResourceLocation(MODID, "plant_growth")));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

@@ -68,7 +68,6 @@ public class Druidry
         DruidrySpells.SPELLS.register(modEventBus);
         ARG_TYPE.register(modEventBus);
         Networking.register();
-        DruidryTablets.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::clientSetup);
         
@@ -95,8 +94,11 @@ public class Druidry
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-        if (event.getTabKey() == druidryMisc.getKey())
+        if (event.getTabKey() == druidryMisc.getKey()) {
             event.accept(DruidryItems.STAFF.get());
+            event.accept(DruidryItems.PLANT_GROWTH_TABLET.get());
+            event.accept(DruidryItems.GOODBERRY_TABLET.get());
+        }
     }
 
     @SubscribeEvent

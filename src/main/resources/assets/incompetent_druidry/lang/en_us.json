@@ -1,6 +1,6 @@
 {
   "spell.druidry.do_nothing": "Nothing Happened",
-  "item.druidry.goodberry.tooltip": "The magic of this berry will last for One Day",
+  "item.druidry.goodberry.tooltip": "The magic of this berry will last until the sun rises again.",
   "spell.incompetent_druidry.spell_slot": "Slot",
 
   "item.incompetent_druidry.basic_staff": "Staff",
@@ -26,6 +26,7 @@
 
   "spell.incompetent_druidry.empty": "No Spell",
   "spell.incompetent_druidry.goodberry": "Goodberry",
+  "spell.incompetent_druidry.plant_growth": "Plant Growth",
   "argument.spell.id.invalid": "Invalid Spell: %s"
 
 

@@ -1,5 +1,6 @@
 package com.incompetent_modders.druidry.casting.spell;
 
+import com.incompetent_modders.druidry.foundation.util.Utils;
 import com.incompetent_modders.druidry.setup.ModRegistries;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -45,9 +46,6 @@ public class DruidryTablet extends Item {
     private Component getSpellDescription() {
         return getSpell().getDisplayName().copy().withStyle(TITLE_FORMAT);
     }
-    private int getSpellCastTime() {
-        return getSpell().getDrawTime() / 20;
-    }
     
     public int getManaCost() {
         return getSpell().getManaCost();
@@ -58,7 +56,7 @@ public class DruidryTablet extends Item {
     }
     
     private String spellCastTimeString() {
-        return getSpellCastTime() + " s";
+        return Utils.timeFromTicks(getSpell().getDrawTime(), 1);
     }
     
     

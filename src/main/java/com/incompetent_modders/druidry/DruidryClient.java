@@ -3,6 +3,7 @@ package com.incompetent_modders.druidry;
 import com.incompetent_modders.druidry.casting.spell.sunburst.SunburstRenderer;
 import com.incompetent_modders.druidry.client.ManaOverlay;
 import com.incompetent_modders.druidry.client.SpellListOverlay;
+import com.incompetent_modders.druidry.client.StaffCursorOverlay;
 import com.incompetent_modders.druidry.effect.curse.BlindnessCurse;
 import com.incompetent_modders.druidry.setup.DruidryEntities;
 import net.minecraft.client.renderer.FogRenderer;
@@ -31,5 +32,6 @@ public class DruidryClient {
     public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAbove(VanillaGuiOverlay.AIR_LEVEL.id(), "mana", ManaOverlay.INSTANCE);
         event.registerAbove(VanillaGuiOverlay.CHAT_PANEL.id(), "selected_spell", SpellListOverlay.INSTANCE);
+        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "spell_timer", StaffCursorOverlay.INSTANCE);
     }
 }

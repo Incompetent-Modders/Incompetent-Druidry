@@ -8,27 +8,31 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 public class BlindnessCurse extends MagicallyAppliedEffect {
     protected BlindnessCurse(MobEffectCategory category, int color) {
         super(category, color);
     }
+    
+    @OnlyIn(Dist.CLIENT)
     public static class BlindnessFogFunction implements FogRenderer.MobEffectFogFunction {
         public BlindnessFogFunction() {
         }
-        
+        @Override
         public MobEffect getMobEffect() {
             return DruidryEffects.BLINDNESS_CURSE.get();
         }
-        
-        public void setupFog(FogRenderer.FogData p_234181_, LivingEntity p_234182_, MobEffectInstance p_234183_, float p_234184_, float p_234185_) {
-            float f = p_234183_.isInfiniteDuration() ? 5.0F : Mth.lerp(Math.min(1.0F, (float)p_234183_.getDuration() / 20.0F), p_234184_, 5.0F);
-            if (p_234181_.mode == FogRenderer.FogMode.FOG_SKY) {
-                p_234181_.start = 0.0F;
-                p_234181_.end = f * 0.8F;
+        @Override
+        public void setupFog(FogRenderer.FogData fogData, LivingEntity entity, MobEffectInstance instance, float p_234184_, float p_234185_) {
+            float f = instance.isInfiniteDuration() ? 5.0F : Mth.lerp(Math.min(1.0F, (float)instance.getDuration() / 20.0F), p_234184_, 5.0F);
+            if (fogData.mode == FogRenderer.FogMode.FOG_SKY) {
+                fogData.start = 0.0F;
+                fogData.end = f * 0.8F;
             } else {
-                p_234181_.start = f * 0.25F;
-                p_234181_.end = f;
+                fogData.start = f * 0.25F;
+                fogData.end = f;
             }
             
         }

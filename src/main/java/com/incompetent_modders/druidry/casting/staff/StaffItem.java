@@ -1,23 +1,27 @@
 package com.incompetent_modders.druidry.casting.staff;
 
 import com.incompetent_modders.druidry.casting.spell.Spell;
+import com.incompetent_modders.druidry.casting.spell.SpellCategory;
 import com.incompetent_modders.druidry.casting.spell.SpellUtils;
-import com.incompetent_modders.druidry.casting.spell_crystal.SpellCrystalItem;
+import com.incompetent_modders.druidry.foundation.util.Utils;
 import com.incompetent_modders.druidry.setup.DruidrySpells;
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.client.event.InputEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,29 +33,66 @@ import static com.incompetent_modders.druidry.casting.spell.DruidryTablet.TITLE_
 public class StaffItem extends Item {
     private final String selSpellSlot = "selectedSpellSlot";
     private final String spellSlot = "spellSlot_";
+    private final String spellSlotCooldown = "spellSlotCoolDown_";
+    private final String remainingDrawTime = "castProgress";
     private final int level;
     private static int selectedSpellSlot;
     public StaffItem(Properties p, int level) {
         super(p);
         this.level = level;
     }
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return oldStack.getItem() != newStack.getItem();
+    }
     public int getLevel() {
         return this.level;
     }
     public int getUseDuration(ItemStack stack) {
-        return 72000;
+        return getSelectedSpell(stack).getDrawTime();
+    }
+    public int getSpellCoolDown(ItemStack stack) {
+        return getSelectedSpell(stack).getCoolDown();
     }
     public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BLOCK;
+        return UseAnim.BOW;
     }
+    public int spellRemainingDrawTime(ItemStack stack) {
+         return getCastProgress(stack);
+    }
+    public void onUseTick(Level level, LivingEntity entity, ItemStack itemstack, int p_41431_) {
+        if (getCastProgress(itemstack) > 0) {
+            decrementCastProgress(itemstack);
+        }
+        if (getCastProgress(itemstack) == 0) {
+            Spell spell = getSelectedSpell(itemstack);
+            if (spell != null && !isCoolDown(selectedSpellSlot, itemstack)) {
+                spell.cast(level, (Player) entity, InteractionHand.MAIN_HAND);
+                level.playSound((Player) entity, entity.getX(), entity.getY(), entity.getZ(), spell.getSpellSound(), entity.getSoundSource(), 1.0F, 1.0F);
+                addCoolDown(selectedSpellSlot, getSpellCoolDown(itemstack), itemstack);
+            }
+            entity.stopUsingItem();
+        }
+    }
+    
+    //public ItemStack finishUsingItem(ItemStack itemstack, Level level, LivingEntity entity) {
+    //    if (entity instanceof Player player) {
+    //        castProgress = 0;
+    //        Spell spell = getSelectedSpell(itemstack);
+    //        if (spell != null) {
+    //            spell.cast(level, player, InteractionHand.MAIN_HAND);
+    //        }
+    //    }
+    //    return itemstack;
+    //}
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (!player.getAbilities().instabuild) {
-            return InteractionResultHolder.fail(itemstack);
-        } else {
-            player.startUsingItem(hand);
-            return InteractionResultHolder.consume(itemstack);
+        if (getCastProgress(itemstack) == 0) {
+            setCastProgress(getSelectedSpell(itemstack), itemstack);
         }
+        if (isCoolDown(selectedSpellSlot, itemstack))
+            return InteractionResultHolder.fail(itemstack);
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(itemstack);
     }
     public static int getSpellSlots(int tier) {
         return switch (tier) {
@@ -61,6 +102,7 @@ public class StaffItem extends Item {
             default -> 1;
         };
     }
+    
     public static String getSpellNameInSlot(CompoundTag tag, int slot) {
         return SpellUtils.deserializeFromSlot(tag, slot).getDisplayName().getString();
     }
@@ -73,44 +115,40 @@ public class StaffItem extends Item {
             )
             .withStyle(TITLE_FORMAT);
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null) {
-            return;
-        }
+        CompoundTag tag = stack.getOrCreateTag();
+        String selectedSlotCoolDown = Utils.timeFromTicks(getCoolDown(selectedSpellSlot, stack), 2);
         tooltip.add(CommonComponents.EMPTY);
         tooltip.add(SELECTED_SPELL_TITLE);
-        tooltip.add(CommonComponents.space().append(getSelectedSpell(stack).getDisplayName()).withStyle(DESCRIPTION_FORMAT));
+        tooltip.add(CommonComponents.space().append(getSelectedSpell(stack).getDisplayName()).withStyle(DESCRIPTION_FORMAT).append(getCoolDown(selectedSpellSlot, stack) > 0 ? " - " + selectedSlotCoolDown : "").withStyle(DESCRIPTION_FORMAT));
         tooltip.add(CommonComponents.EMPTY);
         tooltip.add(AVAILABLE_SPELLS_TITLE);
-        for (int i = 0; i <= getSpellSlots(this.getLevel()); i++) {
+        for (int i = 0; i <= getSpellSlots(this.getLevel()) + 1; i++) {
+            
             if (i == selectedSpellSlot) {
                 return;
             }
-            else
-                tooltip.add(CommonComponents.space().append(getSpellNameInSlot(tag, i)).withStyle(DESCRIPTION_FORMAT));
+            else {
+                String slotCoolDown = Utils.timeFromTicks(getCoolDown(i, stack), 2);
+                tooltip.add(CommonComponents.space().append(getSpellNameInSlot(tag, i)).withStyle(DESCRIPTION_FORMAT).append(getCoolDown(i, stack) > 0 ? " - " + slotCoolDown : "").withStyle(DESCRIPTION_FORMAT));
+            }
         }
         
     }
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
-        if (entity instanceof Player player) {
-            Spell spell = getSelectedSpell(stack);
-            if (spell != null) {
-                int i = this.getUseDuration(stack) - timeLeft;
-                if (i >= spell.getDrawTime()) {
-                    spell.cast(level, player, InteractionHand.MAIN_HAND);
-                }
-            }
-        }
+    
+    public void releaseUsing(ItemStack itemstack, Level level, LivingEntity entity, int timeLeft) {
+        resetCastProgress(itemstack);
     }
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null) {
-            return;
-        }
+        CompoundTag tag = stack.getOrCreateTag();
+        
+        
+        
         for (int i = 0; i <= getSpellSlots(this.getLevel()); i++) {
             if (!tag.contains(spellSlot + i) || tag.getString(spellSlot + i).isEmpty()) {
                 tag.putString(spellSlot + i, DruidrySpells.EMPTY.get().getSpellIdentifier().toString());
             }
+            decrementCoolDowns(stack, level, (Player) entity);
+            
         }
         if (!tag.contains(selSpellSlot))
             tag.putInt(selSpellSlot, 1);
@@ -144,4 +182,64 @@ public class StaffItem extends Item {
         }
         return DruidrySpells.EMPTY.get();
     }
+    
+    private void addCoolDown(int slot, int ticks, ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        switch (slot) {
+            case 0 -> tag.putInt(spellSlotCooldown + 0, ticks);
+            case 1 -> tag.putInt(spellSlotCooldown + 1, ticks);
+            case 2 -> tag.putInt(spellSlotCooldown + 2, ticks);
+            case 3 -> tag.putInt(spellSlotCooldown + 3, ticks);
+            case 4 -> tag.putInt(spellSlotCooldown + 4, ticks);
+            case 5 -> tag.putInt(spellSlotCooldown + 5, ticks);
+        }
+        
+    }
+    private void decrementCoolDowns(ItemStack stack, Level level, Player player) {
+        CompoundTag tag = stack.getOrCreateTag();
+        for (int i = 0; i <= getSpellSlots(this.getLevel()); i++) {
+            if (tag.contains(spellSlotCooldown + i)) {
+                int coolDown = tag.getInt(spellSlotCooldown + i);
+                if (coolDown > 0) {
+                    tag.putInt(spellSlotCooldown + i, coolDown - 1);
+                }
+                if (tag.getInt(spellSlotCooldown + i) - 1 == 0) {
+                    level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ALLAY_THROW, player.getSoundSource(), 1.0F, 1.0F);
+                }
+            }
+        }
+    }
+    
+    private boolean isCoolDown(int slot, ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        return tag.getInt(spellSlotCooldown + slot) > 0;
+    }
+    private int getCoolDown(int slot, ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        return tag.getInt(spellSlotCooldown + slot);
+    }
+    
+    private int getCastProgress(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        return tag.getInt(remainingDrawTime);
+    }
+    
+    private void setCastProgress(Spell spell, ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        int ticks = spell.getDrawTime();
+        tag.putInt(remainingDrawTime, ticks);
+    }
+    
+    private void resetCastProgress(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        tag.putInt(remainingDrawTime, 0);
+    }
+    private void decrementCastProgress(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
+        int ticks = tag.getInt(remainingDrawTime);
+        if (ticks > 0) {
+            tag.putInt(remainingDrawTime, ticks - 1);
+        }
+    }
+    
 }
