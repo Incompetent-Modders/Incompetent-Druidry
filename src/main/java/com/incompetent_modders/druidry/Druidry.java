@@ -5,6 +5,7 @@ import com.incompetent_modders.druidry.command.arguments.SpellArgument;
 import com.incompetent_modders.druidry.effect.DruidryEffects;
 import com.incompetent_modders.druidry.network.Networking;
 import com.incompetent_modders.druidry.setup.*;
+import com.incompetent_modders.incomp_core.ModRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.item.ItemArgument;
@@ -58,7 +59,6 @@ public class Druidry
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
-        ModRegistries.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
         DruidryItems.ITEMS.register(modEventBus);
@@ -69,7 +69,7 @@ public class Druidry
         ARG_TYPE.register(modEventBus);
         Networking.register();
         modEventBus.addListener(this::addCreative);
-        modEventBus.addListener(this::clientSetup);
+        modEventBus.addListener(DruidryClient::init);
         
         //modEventBus.addListener(DruidryCommands::onCommandsRegistered);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -77,9 +77,6 @@ public class Druidry
         NeoForge.EVENT_BUS.register(handler);
     }
     
-    public void clientSetup(final FMLClientSetupEvent event) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(DruidryClient::init);
-    }
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         LOGGER.info("HELLO FROM COMMON SETUP");

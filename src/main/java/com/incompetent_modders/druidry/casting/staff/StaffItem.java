@@ -1,16 +1,15 @@
 package com.incompetent_modders.druidry.casting.staff;
 
-import com.incompetent_modders.druidry.casting.spell.Spell;
-import com.incompetent_modders.druidry.casting.spell.SpellCategory;
-import com.incompetent_modders.druidry.casting.spell.SpellUtils;
 import com.incompetent_modders.druidry.foundation.util.Utils;
 import com.incompetent_modders.druidry.setup.DruidrySpells;
+import com.incompetent_modders.incomp_core.api.spell.Spell;
+import com.incompetent_modders.incomp_core.api.spell.SpellUtils;
+import com.incompetent_modders.incomp_core.api.spell.Spells;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -66,7 +65,7 @@ public class StaffItem extends Item {
         if (getCastProgress(itemstack) == 0) {
             Spell spell = getSelectedSpell(itemstack);
             if (spell != null && !isCoolDown(selectedSpellSlot, itemstack)) {
-                spell.cast(level, (Player) entity, InteractionHand.MAIN_HAND);
+                spell.cast(level, entity, InteractionHand.MAIN_HAND);
                 level.playSound((Player) entity, entity.getX(), entity.getY(), entity.getZ(), spell.getSpellSound(), entity.getSoundSource(), 1.0F, 1.0F);
                 addCoolDown(selectedSpellSlot, getSpellCoolDown(itemstack), itemstack);
             }
@@ -145,7 +144,7 @@ public class StaffItem extends Item {
         
         for (int i = 0; i <= getSpellSlots(this.getLevel()); i++) {
             if (!tag.contains(spellSlot + i) || tag.getString(spellSlot + i).isEmpty()) {
-                tag.putString(spellSlot + i, DruidrySpells.EMPTY.get().getSpellIdentifier().toString());
+                tag.putString(spellSlot + i, Spells.EMPTY.get().getSpellIdentifier().toString());
             }
             decrementCoolDowns(stack, level, (Player) entity);
             
@@ -180,7 +179,7 @@ public class StaffItem extends Item {
         if (tag != null) {
             return SpellUtils.deserializeFromSlot(tag, selectedSpellSlot);
         }
-        return DruidrySpells.EMPTY.get();
+        return Spells.EMPTY.get();
     }
     
     private void addCoolDown(int slot, int ticks, ItemStack stack) {

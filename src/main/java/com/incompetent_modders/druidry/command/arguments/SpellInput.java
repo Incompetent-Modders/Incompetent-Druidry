@@ -1,10 +1,9 @@
 package com.incompetent_modders.druidry.command.arguments;
 
-import com.incompetent_modders.druidry.casting.spell.Spell;
+import com.incompetent_modders.incomp_core.api.spell.Spell;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Predicate;
 

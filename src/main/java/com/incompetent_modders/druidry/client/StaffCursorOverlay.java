@@ -1,17 +1,13 @@
 package com.incompetent_modders.druidry.client;
 
 import com.incompetent_modders.druidry.Druidry;
-import com.incompetent_modders.druidry.casting.spell.Spell;
 import com.incompetent_modders.druidry.casting.staff.StaffItem;
 import com.incompetent_modders.druidry.foundation.util.Utils;
-import com.incompetent_modders.druidry.setup.DruidryItems;
-import com.incompetent_modders.druidry.setup.DruidrySpells;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;

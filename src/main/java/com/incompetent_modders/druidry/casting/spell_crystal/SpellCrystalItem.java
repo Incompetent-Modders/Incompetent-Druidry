@@ -1,6 +1,6 @@
 package com.incompetent_modders.druidry.casting.spell_crystal;
 
-import com.incompetent_modders.druidry.casting.spell.SpellUtils;
+import com.incompetent_modders.incomp_core.api.spell.SpellUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;

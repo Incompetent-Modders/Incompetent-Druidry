@@ -1,9 +1,10 @@
 package com.incompetent_modders.druidry.client;
 
-import com.incompetent_modders.druidry.casting.spell.Spell;
 import com.incompetent_modders.druidry.casting.staff.StaffItem;
 import com.incompetent_modders.druidry.setup.DruidryItems;
 import com.incompetent_modders.druidry.setup.DruidrySpells;
+import com.incompetent_modders.incomp_core.api.spell.Spell;
+import com.incompetent_modders.incomp_core.api.spell.Spells;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -35,9 +36,9 @@ public class SpellListOverlay implements IGuiOverlay {
             return;
         
         Item staffMainHand = player.getItemInHand(InteractionHand.MAIN_HAND).getItem();
-        Spell spellMainHand = staffMainHand instanceof StaffItem staffItem ? staffItem.getSelectedSpell(player.getItemInHand(InteractionHand.MAIN_HAND)) : DruidrySpells.EMPTY.get();
+        Spell spellMainHand = staffMainHand instanceof StaffItem staffItem ? staffItem.getSelectedSpell(player.getItemInHand(InteractionHand.MAIN_HAND)) : Spells.EMPTY.get();
         Item staffOffHand = player.getItemInHand(InteractionHand.OFF_HAND).getItem();
-        Spell spellOffHand = staffOffHand instanceof StaffItem staffItem ? staffItem.getSelectedSpell(player.getItemInHand(InteractionHand.OFF_HAND)) : DruidrySpells.EMPTY.get();
+        Spell spellOffHand = staffOffHand instanceof StaffItem staffItem ? staffItem.getSelectedSpell(player.getItemInHand(InteractionHand.OFF_HAND)) : Spells.EMPTY.get();
         
         if (spellMainHand == null && spellOffHand == null)
             return;

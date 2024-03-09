@@ -1,10 +1,9 @@
 package com.incompetent_modders.druidry.casting.spell.list;
 
-import com.incompetent_modders.druidry.casting.spell.Spell;
-import com.incompetent_modders.druidry.casting.spell.SpellCategory;
+import com.incompetent_modders.druidry.casting.spell.DruidSpell;
+import com.incompetent_modders.incomp_core.api.spell.SpellCategory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,15 +17,14 @@ import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.StemBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.Property;
 
-import java.util.ArrayList;
-
-public class PlantGrowthSpell extends Spell {
+public class PlantGrowthSpell extends DruidSpell {
     public PlantGrowthSpell(int manaCost, int drawTime) {
         super(false, manaCost, drawTime, 12000, SpellCategory.ENVIRONMENTAL);
     }

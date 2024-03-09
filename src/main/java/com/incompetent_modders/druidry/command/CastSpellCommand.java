@@ -1,8 +1,8 @@
 package com.incompetent_modders.druidry.command;
 
-import com.incompetent_modders.druidry.casting.spell.Spell;
 import com.incompetent_modders.druidry.command.arguments.SpellArgument;
 import com.incompetent_modders.druidry.command.arguments.SpellInput;
+import com.incompetent_modders.incomp_core.api.spell.Spell;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;

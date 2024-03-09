@@ -1,5 +1,6 @@
 package com.incompetent_modders.druidry.client;
 
+import com.incompetent_modders.druidry.setup.Attributes;
 import com.incompetent_modders.druidry.setup.Capabilities;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,7 @@ public class ManaOverlay implements IGuiOverlay {
             return;
         
         double mana = Capabilities.getMana(player).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getCurrentMana();
-        double maxMana = Capabilities.getMana(player).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getMaxMana();
+        double maxMana = player.getAttributeValue(Attributes.MAX_MANA.get());
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
         poseStack.translate((double) screenWidth / 2 + 120, screenHeight - 53, 0);

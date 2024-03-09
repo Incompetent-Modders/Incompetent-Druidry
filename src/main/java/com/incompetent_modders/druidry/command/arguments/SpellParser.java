@@ -1,7 +1,7 @@
 package com.incompetent_modders.druidry.command.arguments;
 
-import com.incompetent_modders.druidry.casting.spell.Spell;
-import com.incompetent_modders.druidry.setup.ModRegistries;
+import com.incompetent_modders.incomp_core.ModRegistries;
+import com.incompetent_modders.incomp_core.api.spell.Spell;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;

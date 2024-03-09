@@ -1,11 +1,13 @@
 package com.incompetent_modders.druidry.casting.spell;
 
+import com.incompetent_modders.incomp_core.api.spell.SpellCategory;
+import com.incompetent_modders.incomp_core.api.spell.SpellUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 
-public class GrantItemSpell extends Spell {
+public class GrantItemSpell extends DruidSpell {
     
     private final Item item;
     private final int itemAmount;
