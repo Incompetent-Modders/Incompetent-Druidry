@@ -15,8 +15,10 @@ import net.minecraft.commands.synchronization.SingletonArgumentInfo;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -46,8 +48,9 @@ public class Druidry
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> DruidryItems.GOODBERRY.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(DruidryItems.GOODBERRY.get());// Add the example item to the tab. For your own tabs, this method is preferred over the event
-                
+                for (DeferredHolder<Item, ? extends Item> registry : DruidryItems.getItems()) {
+                    output.accept(registry.get());
+                }
             }).build());
     
     public static final DeferredHolder<ArgumentTypeInfo<?, ?>, SingletonArgumentInfo<SpellArgument>> SPELL_ARG = ARG_TYPE.register(
@@ -64,7 +67,6 @@ public class Druidry
         DruidryItems.ITEMS.register(modEventBus);
         DruidryEffects.EFFECTS.register(modEventBus);
         DruidryEntities.ENTITIES.register(modEventBus);
-        Attributes.ATTRIBUTES.register(modEventBus);
         DruidrySpells.SPELLS.register(modEventBus);
         ARG_TYPE.register(modEventBus);
         Networking.register();

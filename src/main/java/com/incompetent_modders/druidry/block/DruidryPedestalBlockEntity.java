@@ -1,14 +1,14 @@
 package com.incompetent_modders.druidry.block;
 
 import com.incompetent_modders.druidry.casting.spell.DruidryTablet;
-import com.incompetent_modders.druidry.casting.spell.Spell;
-import com.incompetent_modders.druidry.casting.spell.SpellUtils;
 import com.incompetent_modders.druidry.casting.staff.StaffItem;
 import com.incompetent_modders.druidry.foundation.block_entity.SmartBlockEntity;
 import com.incompetent_modders.druidry.foundation.block_entity.behaviour.BlockEntityBehaviour;
-import com.incompetent_modders.druidry.setup.Capabilities;
 import com.incompetent_modders.druidry.setup.DruidrySpells;
-import com.incompetent_modders.druidry.setup.ModRegistries;
+import com.incompetent_modders.incomp_core.api.spell.Spell;
+import com.incompetent_modders.incomp_core.api.spell.SpellUtils;
+import com.incompetent_modders.incomp_core.api.spell.Spells;
+import com.incompetent_modders.incomp_core.registry.ModCapabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,8 +20,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 import java.util.List;
@@ -111,7 +109,7 @@ public class DruidryPedestalBlockEntity extends SmartBlockEntity {
             for (int i = 1; i < INVENTORY_SIZE; i++) {
                 if (inventory.getStackInSlot(i).isEmpty()) {
                     Spell spell = readSpell(i);
-                    if (spell == DruidrySpells.EMPTY.get()) {
+                    if (spell == Spells.EMPTY.get()) {
                         continue;
                     }
                     ItemStack stack = new ItemStack(getDruidryTablet(spell));
@@ -127,7 +125,7 @@ public class DruidryPedestalBlockEntity extends SmartBlockEntity {
         return BuiltInRegistries.ITEM.get(new ResourceLocation(spell.getSpellIdentifier().getNamespace(), "spell_tablet_" + spell.getSpellIdentifier().getPath()));
     }
     public void writeSpell(int slot, Spell spell) {
-        SpellUtils.serializeToSlot(inventory.getStackInSlot(STAFF_SLOT).getOrCreateTag(), slot, spell);
+        //SpellUtils.serializeToSlot(inventory.getStackInSlot(STAFF_SLOT).getOrCreateTag(), slot, spell);
     }
     
     public float calcAverageMana(Player player) {
@@ -138,7 +136,7 @@ public class DruidryPedestalBlockEntity extends SmartBlockEntity {
                 total += mana;
             }
         }
-        return total / Capabilities.getMana(player).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getMaxMana();
+        return total / ModCapabilities.getMana(player).orElseThrow(() -> new IllegalStateException("Mana capability not found!")).getMaxMana();
     }
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {

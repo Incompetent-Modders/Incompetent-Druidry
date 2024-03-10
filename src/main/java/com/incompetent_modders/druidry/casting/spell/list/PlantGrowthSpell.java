@@ -17,9 +17,7 @@ import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.StemBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -43,9 +41,10 @@ public class PlantGrowthSpell extends DruidSpell {
             return;
         }
         BlockPos pos = player.blockPosition();
-        for (int x = -50; x <= 50; x++) {
-            for (int z = -50; z <= 50; z++) {
-                for (int y = -50; y <= 50; y++) {
+        int radius = 10;
+        for (int x = -radius; x <= radius; ++x) {
+            for (int y = -1; y <= 1; ++y) {
+                for (int z = -radius; z <= radius; ++z) {
                     BlockPos offsetLocation = pos.offset(x, y, z);
                     BlockState offsetState = level.getBlockState(offsetLocation);
                     convertFoliage((ServerLevel) level, offsetLocation);

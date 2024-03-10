@@ -21,3 +21,9 @@ side="BOTH"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+[[dependencies.incompetent_druidry]] #optional
+    modId="incompetent_core" #mandatory
+    mandatory=true #mandatory
+    versionRange="${incomp_core_range}" #mandatory
+    ordering="BEFORE"
+    side="BOTH"

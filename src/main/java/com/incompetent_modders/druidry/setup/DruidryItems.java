@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.incompetent_modders.druidry.Druidry.MODID;
@@ -64,5 +65,12 @@ public class DruidryItems {
     public static final DeferredHolder<Item, Item> PLANT_GROWTH_TABLET = ITEMS.register("spell_tablet_plant_growth", () -> new DruidryTablet(new ResourceLocation(MODID, "plant_growth")));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
+    }
+    
+    
+    
+    
+    public static Collection<DeferredHolder<Item, ? extends Item>> getItems() {
+        return ITEMS.getEntries();
     }
 }

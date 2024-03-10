@@ -30,17 +30,15 @@ public class DruidryTablet extends Item {
                     Util.makeDescriptionId("item", new ResourceLocation(MODID,"spell_tablet.mana_cost_title"))
             )
             .withStyle(TITLE_FORMAT);
-    private final ResourceLocation spell;
+    private final Spell spell;
     
-    public DruidryTablet(
-            ResourceLocation spell
-    ) {
+    public DruidryTablet(ResourceLocation spell) {
         super(new Item.Properties().stacksTo(1));
-        this.spell = spell;
+        this.spell = ModRegistries.SPELL.get(spell);
     }
     
     public Spell getSpell() {
-        return ModRegistries.SPELL.get(spell);
+        return spell;
     }
     
     private Component getSpellDescription() {
