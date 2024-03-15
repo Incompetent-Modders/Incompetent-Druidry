@@ -3,6 +3,7 @@ package com.incompetent_modders.druidry.casting.spell;
 import com.incompetent_modders.druidry.foundation.util.Utils;
 import com.incompetent_modders.incomp_core.ModRegistries;
 import com.incompetent_modders.incomp_core.api.spell.Spell;
+import com.incompetent_modders.incomp_core.util.CommonUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.CommonComponents;
@@ -30,15 +31,15 @@ public class DruidryTablet extends Item {
                     Util.makeDescriptionId("item", new ResourceLocation(MODID,"spell_tablet.mana_cost_title"))
             )
             .withStyle(TITLE_FORMAT);
-    private final Spell spell;
+    private final ResourceLocation spell;
     
     public DruidryTablet(ResourceLocation spell) {
         super(new Item.Properties().stacksTo(1));
-        this.spell = ModRegistries.SPELL.get(spell);
+        this.spell = spell;
     }
     
     public Spell getSpell() {
-        return spell;
+        return ModRegistries.SPELL.get(spell);
     }
     
     private Component getSpellDescription() {
@@ -54,7 +55,7 @@ public class DruidryTablet extends Item {
     }
     
     private String spellCastTimeString() {
-        return Utils.timeFromTicks(getSpell().getDrawTime(), 1);
+        return CommonUtils.timeFromTicks(getSpell().getDrawTime(), 1);
     }
     
     

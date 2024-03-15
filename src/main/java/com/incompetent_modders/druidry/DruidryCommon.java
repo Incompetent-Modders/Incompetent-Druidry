@@ -19,28 +19,28 @@ import java.util.UUID;
 
 import static com.incompetent_modders.incomp_core.api.player.PlayerDataCore.DATA_ID;
 
-@Mod.EventBusSubscriber(modid = Druidry.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+//@Mod.EventBusSubscriber(modid = Druidry.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DruidryCommon {
     
-    static AttributeModifier DRUIDRY_PACIFIST = new AttributeModifier(UUID.fromString("70eeca5e-46ed-4b8a-bf75-f102419395cc"), "Pacifist", 0.25F, AttributeModifier.Operation.MULTIPLY_TOTAL);
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void onEntityAdded(EntityJoinLevelEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof Player player) {
-            CompoundTag tag = player.getPersistentData().getCompound(DATA_ID);
-            ClassType classType = ModRegistries.CLASS_TYPE.get(new ResourceLocation(tag.getString("class_type")));
-            AttributeInstance inst = player.getAttribute(ModAttributes.MAX_MANA.get());
-            boolean hasClassMana = classType != null && inst != null && inst.getBaseValue() == classType.getBaseMana();
-            if (inst != null && classType != null) {
-                if (!hasClassMana)
-                    inst.setBaseValue(classType.getBaseMana());
-            }
-            AttributeInstance damage = player.getAttribute(Attributes.ATTACK_DAMAGE);
-            if (classType != null && damage != null) {
-                if (classType.isPacifist()) {
-                    damage.addPermanentModifier(DRUIDRY_PACIFIST);
-                }
-            }
-        }
-    }
+    //static AttributeModifier DRUIDRY_PACIFIST = new AttributeModifier(UUID.fromString("70eeca5e-46ed-4b8a-bf75-f102419395cc"), "Pacifist", 0.25F, AttributeModifier.Operation.MULTIPLY_TOTAL);
+    //@SubscribeEvent(priority = EventPriority.HIGH)
+    //public static void onEntityAdded(EntityJoinLevelEvent event) {
+    //    Entity entity = event.getEntity();
+    //    if (entity instanceof Player player) {
+    //        CompoundTag tag = player.getPersistentData().getCompound(DATA_ID);
+    //        ClassType classType = ModRegistries.CLASS_TYPE.get(new ResourceLocation(tag.getString("class_type")));
+    //        AttributeInstance inst = player.getAttribute(ModAttributes.MAX_MANA.get());
+    //        boolean hasClassMana = classType != null && inst != null && inst.getBaseValue() == classType.getMaxMana();
+    //        if (inst != null && classType != null) {
+    //            if (!hasClassMana)
+    //                inst.setBaseValue(classType.getMaxMana());
+    //        }
+    //        AttributeInstance damage = player.getAttribute(Attributes.ATTACK_DAMAGE);
+    //        if (classType != null && damage != null) {
+    //            if (classType.isPacifist()) {
+    //                damage.addPermanentModifier(DRUIDRY_PACIFIST);
+    //            }
+    //        }
+    //    }
+    //}
 }

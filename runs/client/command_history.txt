@@ -1,6 +1,3 @@
-/setSpell 1 "incompetent_druidry:goodberry"
-/setSpell 0 "incompetent_druidry:goodberry"
-/getSpell 1
 /setSpell 0 "incompetent_druidry:goodberry"
 /setSpell 1 "incompetent_druidry:goodberry"
 /setSpell 0 "incompetent_druidry:empty"
@@ -48,3 +45,6 @@
 /setSpell 0 "incompetent_druidry:plant_growth"
 /kill @e[type=item]
 /kill @e[type=minecraft:warden]
+/incompetent_core setSpell 0 "incompetent_druidry:plant_growth"
+/incompetent_core setSpell 1 "incompetent_druidry:goodberry"
+/incompetent_core setSpell 0 "incompetent_druidry:goodberry"

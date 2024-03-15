@@ -61,8 +61,8 @@ public class DruidryItems {
             createSpellSlotInsertMaterialList()
     ));
     
-    public static final DeferredHolder<Item, Item> GOODBERRY_TABLET = ITEMS.register("spell_tablet_goodberry", () -> new DruidryTablet(new ResourceLocation(MODID, "goodberry")));
-    public static final DeferredHolder<Item, Item> PLANT_GROWTH_TABLET = ITEMS.register("spell_tablet_plant_growth", () -> new DruidryTablet(new ResourceLocation(MODID, "plant_growth")));
+    public static final DeferredHolder<Item, Item> GOODBERRY_TABLET = ITEMS.register("spell_tablet_goodberry", () -> new DruidryTablet(DruidrySpells.GOODBERRY.getId()));
+    public static final DeferredHolder<Item, Item> PLANT_GROWTH_TABLET = ITEMS.register("spell_tablet_plant_growth", () -> new DruidryTablet(DruidrySpells.PLANT_GROWTH.getId()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

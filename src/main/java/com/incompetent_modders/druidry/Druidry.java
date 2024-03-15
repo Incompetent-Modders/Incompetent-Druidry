@@ -1,21 +1,16 @@
 package com.incompetent_modders.druidry;
 
 import com.incompetent_modders.druidry.client.ClientEventHandler;
-import com.incompetent_modders.druidry.command.arguments.SpellArgument;
 import com.incompetent_modders.druidry.effect.DruidryEffects;
 import com.incompetent_modders.druidry.network.Networking;
-import com.incompetent_modders.druidry.setup.*;
+import com.incompetent_modders.druidry.setup.DruidryClassTypes;
+import com.incompetent_modders.druidry.setup.DruidryEntities;
+import com.incompetent_modders.druidry.setup.DruidryItems;
+import com.incompetent_modders.druidry.setup.DruidrySpells;
 import com.incompetent_modders.incomp_core.ModRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.commands.arguments.item.ItemArgument;
-import net.minecraft.commands.synchronization.ArgumentTypeInfo;
-import net.minecraft.commands.synchronization.ArgumentTypeInfos;
-import net.minecraft.commands.synchronization.SingletonArgumentInfo;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -41,9 +36,6 @@ public class Druidry
     public static final String MODID = "incompetent_druidry";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-    private static final DeferredRegister<ArgumentTypeInfo<?, ?>> ARG_TYPE = DeferredRegister.create(
-            Registries.COMMAND_ARGUMENT_TYPE, MODID
-    );
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> druidryMisc = CREATIVE_MODE_TABS.register("incompetent_druidry_misc", () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> DruidryItems.GOODBERRY.get().getDefaultInstance())
@@ -53,30 +45,26 @@ public class Druidry
                 }
             }).build());
     
-    public static final DeferredHolder<ArgumentTypeInfo<?, ?>, SingletonArgumentInfo<SpellArgument>> SPELL_ARG = ARG_TYPE.register(
-            "spell", () -> ArgumentTypeInfos.registerByClass(
-                    SpellArgument.class, SingletonArgumentInfo.contextFree(SpellArgument::new)
-            )
-    );
+    
     public Druidry()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::commonSetup);
         CREATIVE_MODE_TABS.register(modEventBus);
         NeoForge.EVENT_BUS.register(this);
-        DruidryItems.ITEMS.register(modEventBus);
-        DruidryEffects.EFFECTS.register(modEventBus);
+        DruidryItems.register(modEventBus);
+        DruidryEffects.register(modEventBus);
         DruidryEntities.ENTITIES.register(modEventBus);
-        DruidrySpells.SPELLS.register(modEventBus);
-        ARG_TYPE.register(modEventBus);
+        DruidryClassTypes.register(modEventBus);
+        DruidrySpells.register(modEventBus);
         Networking.register();
         modEventBus.addListener(this::addCreative);
         modEventBus.addListener(DruidryClient::init);
         
         //modEventBus.addListener(DruidryCommands::onCommandsRegistered);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-        ClientEventHandler handler = new ClientEventHandler();
-        NeoForge.EVENT_BUS.register(handler);
+        //ClientEventHandler handler = new ClientEventHandler();
+        //NeoForge.EVENT_BUS.register(handler);
     }
     
     private void commonSetup(final FMLCommonSetupEvent event)

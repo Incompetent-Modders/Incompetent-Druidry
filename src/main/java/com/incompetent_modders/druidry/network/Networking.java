@@ -31,11 +31,11 @@ public class Networking {
         
         INSTANCE = net;
         
-        net.messageBuilder(SpellSlotScrollMessage.class, id(), PlayNetworkDirection.PLAY_TO_SERVER)
-                .decoder(SpellSlotScrollMessage::new)
-                .encoder(SpellSlotScrollMessage::toBytes)
-                .consumerMainThread(SpellSlotScrollMessage::handle)
-                .add();
+        //net.messageBuilder(SpellSlotScrollMessage.class, id(), PlayNetworkDirection.PLAY_TO_SERVER)
+        //        .decoder(SpellSlotScrollMessage::new)
+        //        .encoder(SpellSlotScrollMessage::toBytes)
+        //        .consumerMainThread(SpellSlotScrollMessage::handle)
+        //        .add();
     }
     
     public static <MSG> void sendToServer(MSG message) {

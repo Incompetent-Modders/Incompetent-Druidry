@@ -3,6 +3,7 @@ package com.incompetent_modders.druidry.client;
 import com.incompetent_modders.druidry.Druidry;
 import com.incompetent_modders.druidry.casting.staff.StaffItem;
 import com.incompetent_modders.druidry.foundation.util.Utils;
+import com.incompetent_modders.incomp_core.util.CommonUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -43,10 +44,10 @@ public class StaffCursorOverlay implements IGuiOverlay {
         
         
         float castCompletionPercentOff = getCastCompletionPercent(staffOffHand);
-        String castTimeStringOff = Utils.timeFromTicks((1 - castCompletionPercentOff) * getCastDuration(staffOffHand), 1);
+        String castTimeStringOff = CommonUtils.timeFromTicks((1 - castCompletionPercentOff) * getCastDuration(staffOffHand), 1);
         
         float castCompletionPercentMain = getCastCompletionPercent(staffMainHand);
-        String castTimeStringMain = Utils.timeFromTicks((1 - castCompletionPercentMain) * getCastDuration(staffMainHand), 1);
+        String castTimeStringMain = CommonUtils.timeFromTicks((1 - castCompletionPercentMain) * getCastDuration(staffMainHand), 1);
         
         
         if (castCompletionPercentMain == 0 && isInMainHand)
