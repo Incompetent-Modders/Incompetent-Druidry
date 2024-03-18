@@ -5658,3 +5658,102 @@ java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent
 [15Mar2024 22:50:09.907] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
 [15Mar2024 22:50:09.907] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
 [15Mar2024 22:50:10.230] [Server thread/DEBUG] [net.neoforged.fml.config.ConfigTracker/CONFIG]: Unloading configs type SERVER
+[15Mar2024 22:54:19.067] [Render thread/DEBUG] [net.neoforged.neoforge.server.ServerLifecycleHooks/CORE]: Generating PackInfo named mod:incompetent_druidry for mod file C:\Users\pouff\Documents\GitHub\Incompetent\Incompetent-Druidry\build\resources\main
+[15Mar2024 22:54:19.067] [Render thread/DEBUG] [net.neoforged.neoforge.server.ServerLifecycleHooks/CORE]: Generating PackInfo named mod:incompetent_core for mod file C:\Users\pouff\.gradle\caches\modules-2\files-2.1\maven.modrinth\incompetent-core\1.0.3\e16936d376553778eb40160498f22d64739d42b4\incompetent-core-1.0.3.jar
+[15Mar2024 22:54:19.067] [Render thread/DEBUG] [net.neoforged.neoforge.server.ServerLifecycleHooks/CORE]: Generating PackInfo named mod:neoforge for mod file /
+[15Mar2024 22:54:19.343] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[15Mar2024 22:54:19.364] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1271 advancements
+[15Mar2024 22:54:19.647] [Render thread/DEBUG] [net.neoforged.neoforge.common.CommonHooks/WP]: Gathered mod list to write to world save New World
+[15Mar2024 22:54:19.653] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.2
+[15Mar2024 22:54:19.654] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[15Mar2024 22:54:19.684] [Server thread/DEBUG] [net.neoforged.fml.config.ConfigTracker/CONFIG]: Loading configs type SERVER
+[15Mar2024 22:54:19.684] [Server thread/DEBUG] [net.neoforged.fml.config.ConfigFileTypeHandler/CONFIG]: Built TOML config for .\saves\New World (2)\serverconfig\neoforge-server.toml
+[15Mar2024 22:54:19.686] [Server thread/DEBUG] [net.neoforged.fml.config.ConfigFileTypeHandler/CONFIG]: Loaded TOML config file .\saves\New World (2)\serverconfig\neoforge-server.toml
+[15Mar2024 22:54:19.687] [Server thread/DEBUG] [net.neoforged.fml.config.ConfigFileTypeHandler/CONFIG]: Watching TOML config file .\saves\New World (2)\serverconfig\neoforge-server.toml for changes
+[15Mar2024 22:54:19.688] [Server thread/DEBUG] [net.neoforged.neoforge.common.NeoForgeConfig/FORGEMOD]: Loaded NeoForge config file neoforge-server.toml
+[15Mar2024 22:54:20.213] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[15Mar2024 22:54:20.639] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[15Mar2024 22:54:20.734] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[15Mar2024 22:54:21.226] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 17%
+[15Mar2024 22:54:21.384] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[15Mar2024 22:54:21.384] [Server thread/INFO] [com.incompetent_modders.druidry.Druidry/]: HELLO from server starting
+[15Mar2024 22:54:21.384] [Server thread/INFO] [com.incompetent_modders.incomp_core.IncompCore/]: HELLO from server starting
+[15Mar2024 22:54:21.388] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 1170 ms
+[15Mar2024 22:54:21.397] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 32, from 10
+[15Mar2024 22:54:21.397] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 32, from 0
+[15Mar2024 22:54:21.511] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Starting local connection.
+[15Mar2024 22:54:21.514] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Starting local connection.
+[15Mar2024 22:54:21.521] [Server thread/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Sending ticking packet info 'net.neoforged.neoforge.network.HandshakeMessages$S2CModData' to 'fml:handshake' sequence 0
+[15Mar2024 22:54:21.523] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Recieved login wrapper packet event for channel fml:handshake with index 0
+[15Mar2024 22:54:21.545] [Server thread/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Sending ticking packet info 'net.neoforged.neoforge.network.HandshakeMessages$S2CModList' to 'fml:handshake' sequence 1
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Recieved login wrapper packet event for channel fml:handshake with index 1
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Logging into server with mod list [minecraft, incompetent_druidry, incompetent_core, neoforge]
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'neoforge:split' : Version test of '1.1' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'fml:loginwrapper' : Version test of 'FML3' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'incompetent_druidry:messages' : Version test of '1.0' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'fml:handshake' : Version test of 'FML3' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'incompetent_core:messages' : Version test of '1.0' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'minecraft:unregister' : Version test of 'FML3' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'fml:play' : Version test of 'FML3' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'minecraft:register' : Version test of 'FML3' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'neoforge:tier_sorting' : Version test of '1.0' from server : ACCEPTED
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Accepting channel list from server
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Dispatching wrapped packet reply for channel fml:handshake with index 1
+[15Mar2024 22:54:21.546] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Accepted server connection
+[15Mar2024 22:54:21.546] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Recieved login wrapper packet event for channel fml:handshake with index 1
+[15Mar2024 22:54:21.546] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Received client indexed reply 1 of type net.neoforged.neoforge.network.HandshakeMessages$C2SModListReply
+[15Mar2024 22:54:21.546] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Received client connection with modlist [minecraft, incompetent_druidry, incompetent_core, neoforge]
+[15Mar2024 22:54:21.547] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/]: Expecting 18 registries: [minecraft:command_argument_type, minecraft:particle_type, minecraft:sound_event, minecraft:frog_variant, minecraft:villager_profession, neoforge:entity_data_serializers, minecraft:item, minecraft:villager_type, minecraft:painting_variant, minecraft:block_entity_type, minecraft:block, minecraft:cat_variant, minecraft:stat_type, minecraft:mob_effect, neoforge:display_contexts, minecraft:menu, minecraft:enchantment, minecraft:entity_type]
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'neoforge:split' : Version test of '1.1' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'fml:loginwrapper' : Version test of 'FML3' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'incompetent_druidry:messages' : Version test of '1.0' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'fml:handshake' : Version test of 'FML3' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'incompetent_core:messages' : Version test of '1.0' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'minecraft:unregister' : Version test of 'FML3' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'fml:play' : Version test of 'FML3' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'minecraft:register' : Version test of 'FML3' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Channel 'neoforge:tier_sorting' : Version test of '1.0' from client : ACCEPTED
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.NetworkRegistry/NETREGISTRY]: Accepting channel list from client
+[15Mar2024 22:54:21.547] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Accepted client connection mod list
+[15Mar2024 22:54:21.595] [Server thread/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Sending ticking packet info 'Config neoforge-server.toml' to 'fml:handshake' sequence 2
+[15Mar2024 22:54:21.596] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Recieved login wrapper packet event for channel fml:handshake with index 2
+[15Mar2024 22:54:21.596] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Received config sync from server
+[15Mar2024 22:54:21.596] [Netty Local Client IO #1/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Dispatching wrapped packet reply for channel fml:handshake with index 2
+[15Mar2024 22:54:21.597] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.LoginWrapper/FMLHANDSHAKE]: Recieved login wrapper packet event for channel fml:handshake with index 2
+[15Mar2024 22:54:21.597] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Received client indexed reply 2 of type net.neoforged.neoforge.network.HandshakeMessages$C2SAcknowledge
+[15Mar2024 22:54:21.597] [Netty Server IO #3/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Received acknowledgement from client
+[15Mar2024 22:54:21.644] [Server thread/DEBUG] [net.neoforged.neoforge.network.HandshakeHandler/FMLHANDSHAKE]: Handshake complete!
+[15Mar2024 22:54:21.646] [Netty Server IO #3/WARN] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Unknown custom packet payload: minecraft:brand
+[15Mar2024 22:54:21.665] [Render thread/INFO] [net.neoforged.neoforge.network.NetworkHooks/]: Connected to a modded server.
+[15Mar2024 22:54:21.672] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:7140422f] logged in with entity id 3351 at (-887.2696214945672, 76.0, 3374.125731425959)
+[15Mar2024 22:54:21.679] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[15Mar2024 22:54:23.069] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 114 advancements
+[15Mar2024 22:55:15.305] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Villager'/4073, l='ServerLevel[New World]', x=-786.78, y=72.00, z=2938.09] died, message: 'Villager hit the ground too hard'
+[15Mar2024 22:59:22.677] [Server thread/DEBUG] [net.neoforged.neoforge.common.CommonHooks/WP]: Gathered mod list to write to world save New World
+[15Mar2024 23:04:22.672] [Server thread/DEBUG] [net.neoforged.neoforge.common.CommonHooks/WP]: Gathered mod list to write to world save New World
+[15Mar2024 23:06:11.686] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[15Mar2024 23:06:11.692] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[15Mar2024 23:06:11.702] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[15Mar2024 23:06:11.703] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[15Mar2024 23:06:11.704] [Server thread/DEBUG] [net.neoforged.neoforge.common.CommonHooks/WP]: Gathered mod list to write to world save New World
+[15Mar2024 23:06:12.086] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[15Mar2024 23:06:12.091] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[15Mar2024 23:06:12.101] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[15Mar2024 23:06:12.102] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[15Mar2024 23:06:12.103] [Server thread/DEBUG] [net.neoforged.neoforge.common.CommonHooks/WP]: Gathered mod list to write to world save New World
+[15Mar2024 23:06:12.752] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[15Mar2024 23:06:12.753] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[15Mar2024 23:06:12.759] [Server thread/INFO] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Stopping singleplayer server as player logged out
+[15Mar2024 23:06:12.809] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[15Mar2024 23:06:12.810] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[15Mar2024 23:06:12.810] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[15Mar2024 23:06:13.298] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[15Mar2024 23:06:13.413] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[15Mar2024 23:06:13.414] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[15Mar2024 23:06:13.414] [Server thread/DEBUG] [net.neoforged.neoforge.common.CommonHooks/WP]: Gathered mod list to write to world save New World
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (New World (2)): All chunks are saved
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[15Mar2024 23:06:13.727] [Server thread/DEBUG] [net.neoforged.fml.config.ConfigTracker/CONFIG]: Unloading configs type SERVER
+[15Mar2024 23:06:14.713] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!

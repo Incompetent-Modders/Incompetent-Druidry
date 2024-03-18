@@ -126,3 +126,45 @@
 [15Mar2024 22:50:09.907] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
 [15Mar2024 22:50:09.907] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
 [15Mar2024 22:50:09.907] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[15Mar2024 22:54:19.343] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[15Mar2024 22:54:19.364] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 1271 advancements
+[15Mar2024 22:54:19.653] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.20.2
+[15Mar2024 22:54:19.654] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[15Mar2024 22:54:20.213] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[15Mar2024 22:54:20.639] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[15Mar2024 22:54:20.734] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[15Mar2024 22:54:21.226] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 17%
+[15Mar2024 22:54:21.384] [Server thread/INFO] [net.neoforged.neoforge.server.permission.PermissionAPI/]: Successfully initialized permission handler neoforge:default_handler
+[15Mar2024 22:54:21.384] [Server thread/INFO] [com.incompetent_modders.druidry.Druidry/]: HELLO from server starting
+[15Mar2024 22:54:21.384] [Server thread/INFO] [com.incompetent_modders.incomp_core.IncompCore/]: HELLO from server starting
+[15Mar2024 22:54:21.388] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 1170 ms
+[15Mar2024 22:54:21.397] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 32, from 10
+[15Mar2024 22:54:21.397] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 32, from 0
+[15Mar2024 22:54:21.646] [Netty Server IO #3/WARN] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Unknown custom packet payload: minecraft:brand
+[15Mar2024 22:54:21.665] [Render thread/INFO] [net.neoforged.neoforge.network.NetworkHooks/]: Connected to a modded server.
+[15Mar2024 22:54:21.672] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:7140422f] logged in with entity id 3351 at (-887.2696214945672, 76.0, 3374.125731425959)
+[15Mar2024 22:54:21.679] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[15Mar2024 22:54:23.069] [Render thread/INFO] [net.minecraft.advancements.AdvancementTree/]: Loaded 114 advancements
+[15Mar2024 22:55:15.305] [Server thread/INFO] [net.minecraft.world.entity.npc.Villager/]: Villager Villager['Villager'/4073, l='ServerLevel[New World]', x=-786.78, y=72.00, z=2938.09] died, message: 'Villager hit the ground too hard'
+[15Mar2024 23:06:11.686] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[15Mar2024 23:06:11.692] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[15Mar2024 23:06:11.702] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[15Mar2024 23:06:11.703] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[15Mar2024 23:06:12.086] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[15Mar2024 23:06:12.091] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[15Mar2024 23:06:12.101] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[15Mar2024 23:06:12.102] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[15Mar2024 23:06:12.752] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[15Mar2024 23:06:12.753] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[15Mar2024 23:06:12.759] [Server thread/INFO] [net.minecraft.server.network.ServerCommonPacketListenerImpl/]: Stopping singleplayer server as player logged out
+[15Mar2024 23:06:12.809] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[15Mar2024 23:06:12.810] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[15Mar2024 23:06:12.810] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[15Mar2024 23:06:13.298] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[15Mar2024 23:06:13.413] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[15Mar2024 23:06:13.414] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (New World (2)): All chunks are saved
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[15Mar2024 23:06:13.417] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[15Mar2024 23:06:14.713] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
